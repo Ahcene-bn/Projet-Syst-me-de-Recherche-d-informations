@@ -97,3 +97,53 @@ difficultés:
   Calcul des pertinences : Le programme calcule la pertinence pour chaque mot de la requête dans tous les documents, ce qui peut être très coûteux en termes de temps
 
 
+Compilation :
+-------------
+Depuis le dossier racine du projet (où se trouvent les fichiers .java) :
+
+javac -d bin src/inf353/*.java
+
+- -d bin : place les fichiers .class compilés dans le dossier bin.
+- src/inf353/*.java : compile tous les fichiers du package inf353.
+
+Exécution :
+-----------
+
+1. Lancer l’indexation
+
+But : créer la matrice d’index et le dictionnaire global à partir d’un corpus.
+
+Commande :
+java -cp bin inf353.Indexation <repertoire_corpus> <fichier_dico_global> <fichier_matrice> <fichier_dico_documents>
+
+Paramètres :
+- <repertoire_corpus> : chemin vers le dossier contenant tous les documents à indexer.
+- <fichier_dico_global> : chemin pour sauvegarder le dictionnaire global (DictionnaireCreux).
+- <fichier_matrice> : chemin pour sauvegarder la matrice d’index (MatriceIndexCreuse).
+- <fichier_dico_documents> : chemin pour sauvegarder le dictionnaire des documents.
+
+Exemple :
+java -cp bin inf353.Indexation "C:/Documents/Corpus" "C:/Index/dicoGlobal.txt" "C:/Index/matrice.txt" "C:/Index/dicoDocs.txt"
+
+2. Lancer la recherche
+
+But : calculer la pertinence des documents par rapport à un fichier de requêtes et écrire les résultats.
+
+Commande :
+java -cp bin inf353.RechercheP <fichier_matrice> <fichier_dico_global> <fichier_requetes> <fichier_resultats> <fichier_dico_documents>
+
+Paramètres :
+- <fichier_matrice> : chemin vers la matrice d’index générée par Indexation.
+- <fichier_dico_global> : chemin vers le dictionnaire global.
+- <fichier_requetes> : fichier contenant les requêtes (une par ligne).
+- <fichier_resultats> : fichier où seront écrits les résultats.
+- <fichier_dico_documents> : chemin vers le dictionnaire des documents.
+
+Exemple :
+java -cp bin inf353.RechercheP "C:/Index/matrice.txt" "C:/Index/dicoGlobal.txt" "C:/Requetes/req.txt" "C:/Results/resultats.txt" "C:/Index/dicoDocs.txt"
+
+Notes importantes :
+------------------
+- Les chemins peuvent être relatifs ou absolus.
+- Assurez-vous que tous les fichiers nécessaires (dictionnaire, matrice, antidictionnaire) existent avant d’exécuter RechercheP.
+- Le programme affichera des logs dans la console pour suivre l’avancement de l’indexation et du calcul des pertinences.
